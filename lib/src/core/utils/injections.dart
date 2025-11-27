@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/app_settings/init_app_settings_injections.dart';
 import '../../features/auth/init_auth_injections.dart';
 import '../../features/home/init_home_injections.dart';
 import '../../features/login/init_login_injections.dart';
@@ -21,6 +22,8 @@ Future<void> initInjections() async {
   await flavorConfigInjections();
   await initAppInjections();
   await initDioInjections();
+
+  await initAppSettingsInjections();
 
   await initAuthInjections();
 

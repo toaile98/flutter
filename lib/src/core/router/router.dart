@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_base/src/core/router/unauth_shell.dart';
@@ -11,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import '../../features/splash/domain/entities/splash.dart';
+import '../utils/injections.dart';
 import 'auth_shell.dart';
 
 final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
@@ -33,7 +35,10 @@ class GoRouterRefreshStream extends ChangeNotifier {
 }
 
 mixin PageRouter {
-  GoRouter buildRouter(AuthBloc authBloc , GlobalKey<NavigatorState> navigatorKey,) {
+  GoRouter buildRouter(
+    AuthBloc authBloc,
+    GlobalKey<NavigatorState> navigatorKey,
+  ) {
     return GoRouter(
       initialLocation: SplashScreen.routePath,
       refreshListenable: GoRouterRefreshStream(authBloc.stream),
@@ -41,7 +46,6 @@ mixin PageRouter {
         final authState = authBloc.state;
         final loggingIn = state.matchedLocation.startsWith('/unauth');
         final atSplash = state.matchedLocation == SplashScreen.routePath;
-
         switch (authState) {
           case AuthenticatedState():
             if (atSplash || loggingIn) {

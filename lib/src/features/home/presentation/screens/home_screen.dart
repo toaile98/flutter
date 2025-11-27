@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/src/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routePath = '/home_route_path';
@@ -17,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
+            context.read<AuthBloc>().add(AuthEvent.logout());
             // Example navigation
           },
           child: const Text('Go to Home'),
